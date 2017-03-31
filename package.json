@@ -1,6 +1,6 @@
 {
   "name": "keybase-sign",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "Sign a message given a private key",
   "main": "lib/index.js",
   "scripts": {
