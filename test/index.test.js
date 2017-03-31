@@ -7,10 +7,10 @@ import verify from 'keybase-verify'
 const sign = require('../src')
 
 it('returns a signed message given a private key that can be verified with its public pair', async () => {
-  const signedMessage = await sign(Fixture.privateKey, Fixture.message, Fixture.passphrase)
+  const detachedSignature = await sign(Fixture.privateKey, Fixture.message, Fixture.passphrase)
 
-  verify(Fixture.publicKey, signedMessage).then(() => {
-    console.log('The user signed the message')
+  verify(Fixture.publicKey, detachedSignature).then(() => {
+    console.log('The user signed the message', detachedSignature)
   })
 })
 

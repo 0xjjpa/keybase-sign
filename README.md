@@ -1,45 +1,46 @@
-# keybase-encrypt [![Build Status](https://img.shields.io/travis/jjperezaguinaga/keybase-encrypt/master.svg?style=flat-square)](https://travis-ci.org/jjperezaguinaga/keybase-encrypt)
+# keybase-sign [![Build Status](https://img.shields.io/travis/jjperezaguinaga/keybase-sign/master.svg?style=flat-square)](https://travis-ci.org/jjperezaguinaga/keybase-sign)
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 
-🔑  Using kbpgp to encrypt messages based on a public key
+🔑  Using kbpgp to sign messages with on a private key
 
 ## Install
 
 ```bash
-$ npm install keybase-encrypt --save
+$ npm install keybase-sign --save
 ```
 
 ## Usage
 
 ```js
-const encrypt = require('keybase-encrypt')
+const sign = require('keybase-sign')
 
-const publicKey =  `-----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: Keybase OpenPGP v2.0.56
-Comment: https://keybase.io/jjperezaguinaga
+const privateKey =  `-----BEGIN PGP PRIVATE KEY BLOCK-----
+Version: Keybase OpenPGP v2.0.66
+Comment: https://keybase.io/crypto
 
-xsFNBFfglq0BEADTvFWRPl18pcBKQmQH8WaiGQ+JXZScuv1PXAcereGrObZbQ4oN
+xcaGBFjc/2UBEADIuWmIzZNn5ZXLSs5juV+yi2RIsCqHtotcjJ/g4QqKaw4vpFYa
 ...
 `
 
 const message = 'This is a test'
+const passphrase = 'password' // Only required if private key is locked
 
 try {
-  encrypt(publicKey, message).then(encryptedMessage => {
-    console.log(encryptedMessage)
+  sign(privateKey, message, passphrase).then(detachedSignature => {
+    console.log(detachedSignature)
     /*
     -----BEGIN PGP MESSAGE-----
-    Version: Keybase OpenPGP v2.0.62
+    Version: Keybase OpenPGP v2.0.68
     Comment: https://keybase.io/crypto
-
-    wcBMA6gpy0Zv/UOFAQf7BU9CCbsM4noJbsCz9sW7/dSzPOsRlQeQdnVO6SYYvQxE
+    
+    yMCQAnicAUQBu/7EDQMACgFK7D7a1hCEhQHLFHUAWN58I1RoaXMgaXMgYSB0ZXN0
     ...
     -----END PGP MESSAGE-----
     */
   })
 } catch(err) {
-    console.log('There was an error encrypting', err)
+    console.log('There was an error signing', err)
 }
 
 
